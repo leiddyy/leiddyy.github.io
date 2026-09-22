@@ -43,7 +43,7 @@
   .wrap {
     max-width: 1080px;
     margin: 0 auto;
-    padding: 0 32px;
+    padding: 0 clamp(18px, 5vw, 32px);
   }
 
   /* ---------- NAV ---------- */
@@ -55,6 +55,8 @@
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
+
+  nav .wrap { position: relative; }
 
   nav .wrap {
     display: flex;
@@ -76,6 +78,30 @@
   }
 
   .nav-links a:hover { color: var(--ivory); }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--ivory);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ---------- HERO ---------- */
   header.hero {
@@ -335,15 +361,63 @@
   }
 
   /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 760px) {
-    .wrap { padding: 0 22px; }
-    .nav-links { display: none; }
+  /* ---------- FLUID TYPE ---------- */
+  .hero h1 { font-size: clamp(2rem, 5.2vw, 3.4rem); }
+  .section-head h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+  footer.contact h2 { font-size: clamp(1.6rem, 5.5vw, 2.4rem); }
+
+  /* ---------- TABLET ---------- */
+  @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.3rem; }
-    .about-body { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
+    .code-card { max-width: 520px; }
+    .about-body { grid-template-columns: 1fr; gap: 36px; }
+    .skills-grid { grid-template-columns: 1fr; gap: 32px; }
     .project { grid-template-columns: 1fr; gap: 14px; }
-    footer.contact h2 { font-size: 1.8rem; }
+  }
+
+  /* ---------- MOBILE NAV ---------- */
+  @media (max-width: 700px) {
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--line);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    .nav-links.open { max-height: 320px; }
+
+    .nav-links a {
+      padding: 14px clamp(18px, 5vw, 32px);
+      border-top: 1px solid var(--line);
+      width: 100%;
+    }
+  }
+
+  /* ---------- SMALL SCREENS ---------- */
+  @media (max-width: 640px) {
+    header.hero { padding: 56px 0 60px; }
+    .section { padding: 56px 0; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn { justify-content: center; }
+    .code-card pre { font-size: 0.74rem; padding: 18px 16px 22px; }
+    .facts { gap: 16px; }
+    .section-head { flex-direction: column; gap: 10px; }
+    .contact-links { flex-direction: column; align-items: stretch; }
+    .contact-links .btn { justify-content: center; }
+    .contact-foot { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 400px) {
+    .skill-col li { flex-direction: column; align-items: flex-start; gap: 4px; }
   }
 
   :focus-visible {
@@ -362,20 +436,23 @@
 <nav>
   <div class="wrap">
     <span class="nav-name">Leidiane Silva</span>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#sobre">Sobre</a>
       <a href="#competencias">Competências</a>
       <a href="#servicos">Serviços</a>
       <a href="#projetos">Projetos</a>
       <a href="#contato">Contato</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="hero-role">Analista de TI · Dados & Automação</div>
+      <div class="hero-role">Analista de TI · Especialista em Banco de Dados (SQL)</div>
       <h1>Transformo processos <em>manuais</em> em sistemas que funcionam sozinhos.</h1>
       <p class="lede">Há 2 anos atuo na área de TI — entre suporte, redes e desenvolvimento — construindo soluções que dão mais controle sobre estoque, pedidos e dados de clientes. Também atendo, por fora, manutenção e upgrade de computadores e notebooks.</p>
       <div class="hero-actions">
@@ -406,7 +483,7 @@
     </div>
     <div class="about-body">
       <div>
-        <p>Sou <strong>Leidiane Silva</strong>, analista de TI há 2 anos, atuando de forma bem ampla: suporte ao usuário, redes e desenvolvimento de sistemas — sempre com um olhar voltado para dados.</p>
+        <p>Sou <strong>Leidiane Silva</strong>, analista de TI há 2 anos, atuando de forma bem ampla: suporte ao usuário, redes e desenvolvimento de sistemas — sempre com um olhar voltado para dados. Tenho especialidade em <strong>banco de dados</strong>, trabalhando com a linguagem <strong>SQL</strong> para consultas, modelagem e organização de informações.</p>
         <p>Gosto de identificar processos manuais e repetitivos e transformá-los em automações com <strong>Python</strong>, além de trabalhar com <strong>SQL</strong> para organizar e consultar informações, e <strong>Power BI</strong> para transformar dados em relatórios visuais que ajudam na tomada de decisão.</p>
         <p>Fora do trabalho, desenvolvo sistemas web completos por conta própria — do front ao banco de dados — como forma de aplicar o que aprendo e resolver problemas reais.</p>
       </div>
@@ -420,8 +497,8 @@
           <div class="label">sistemas web desenvolvidos de ponta a ponta</div>
         </div>
         <div class="fact">
-          <div class="num">3</div>
-          <div class="label">frentes no trabalho: suporte, redes e desenvolvimento</div>
+          <div class="num">SQL</div>
+          <div class="label">especialidade em banco de dados: consultas, modelagem e organização</div>
         </div>
       </div>
     </div>
@@ -439,7 +516,7 @@
         <h3>Dados & análise</h3>
         <ul>
           <li>Python <span class="tag">automação</span></li>
-          <li>SQL <span class="tag">banco de dados</span></li>
+          <li>SQL <span class="tag">especialidade</span></li>
           <li>Power BI <span class="tag">dashboards</span></li>
         </ul>
       </div>
@@ -577,5 +654,23 @@
   </div>
 </footer>
 
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
 </body>
 </html>
