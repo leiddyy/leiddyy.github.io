@@ -368,8 +368,6 @@
 
   /* ---------- TABLET ---------- */
   @media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .code-card { max-width: 520px; }
     .about-body { grid-template-columns: 1fr; gap: 36px; }
     .skills-grid { grid-template-columns: 1fr; gap: 32px; }
     .project { grid-template-columns: 1fr; gap: 14px; }
@@ -377,6 +375,8 @@
 
   /* ---------- MOBILE NAV ---------- */
   @media (max-width: 700px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .code-card { max-width: 520px; }
     .nav-toggle { display: flex; }
 
     .nav-links {
@@ -452,7 +452,6 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-        <div>
       <div class="hero-role">Analista de TI · Dados & Automação</div>
       <h1>Transformo processos <em>manuais</em> em sistemas que funcionam sozinhos.</h1>
       <p class="lede">Há 2 anos atuo na área de TI — entre suporte, redes e desenvolvimento — construindo soluções que dão mais controle sobre estoque, pedidos e dados de clientes. Também atendo, por fora, manutenção e upgrade de computadores e notebooks.</p>
